@@ -27,15 +27,15 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent *PlayerInputComponent) override;
 
 private:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "TankComponents", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "TankComponents", meta = (AllowPrivateAccess = "true"))
 	class UCapsuleComponent *CapsuleComp;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "TankComponents", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "TankComponents", meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent *BaseMesh;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "TankComponents", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "TankComponents", meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent *TurretMesh;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "TankComponents", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "TankComponents", meta = (AllowPrivateAccess = "true"))
 	class USceneComponent *ProjectileSpawnPoint;
 };
