@@ -4,6 +4,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "GameFramework/PlayerController.h"
 
 ATank::ATank()
 {
@@ -18,17 +19,28 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
     Super::BeginPlay();
+    PlayerController = Cast<APlayerController>(GetController());
 }
 
 void ATank::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
+    if (PlayerController)
+    {
+        FHitResult hitResult;
+        PlayerController->GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, true, hitResult);
+        RotateTurret(hitResult.ImpactPoint);
+        DrawDebugSphere(GetWorld(), hitResult.ImpactPoint, 20.f, 30.f, FColor::Red);
+    }
 }
 
 void ATank::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
 {
     PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &ATank::MoveForward);
     PlayerInputComponent->BindAxis(TEXT("Turn"), this, &ATank::Turn);
+
+    PlayerInputComponent->BindAction(TEXT("Fire"), IE_Pressed, this, &ATank::FireMisile);
+
 }
 
 void ATank::MoveForward(float moveParam)

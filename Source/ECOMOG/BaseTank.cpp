@@ -3,6 +3,7 @@
 #include "BaseTank.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ABaseTank::ABaseTank()
@@ -38,5 +39,23 @@ void ABaseTank::Tick(float DeltaTime)
 void ABaseTank::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	PlayerInputComponent -> BindAxis(TEXT("MoveForward"));
+	PlayerInputComponent->BindAxis(TEXT("MoveForward"));
+}
+
+void ABaseTank::RotateTurret(FVector LookAt)
+{
+	FVector LookVector = LookAt - TurretMesh->GetComponentLocation();
+	FRotator turretRotator = FRotator(0.f, LookVector.Rotation().Yaw, 0.f);
+	float DeltaTime = UGameplayStatics::GetWorldDeltaSeconds(this);
+
+	TurretMesh->SetWorldRotation(FMath::RInterpTo(TurretMesh->GetComponentRotation(), turretRotator, DeltaTime, 5.f));
+}
+
+void ABaseTank::FireMisile()
+{
+	DrawDebugSphere(GetWorld(), ProjectileSpawnPoint->GetComponentLocation(), 20.f, 30.f, FColor::Red, true, 3.f);
+	if (Projectile)
+	{
+		GetWorld()->SpawnActor(Projectile);
+	}
 }

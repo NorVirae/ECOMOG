@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "BaseTank.generated.h"
+#include "Projectile.h"
 
 UCLASS()
 class ECOMOG_API ABaseTank : public APawn
@@ -18,6 +19,10 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	void RotateTurret(FVector LookAt);
+
+	void FireMisile();
 
 public:
 	// Called every frame
@@ -38,4 +43,7 @@ private:
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "TankComponents", meta = (AllowPrivateAccess = "true"))
 	class USceneComponent *ProjectileSpawnPoint;
+
+	UPROPERTY(EditDefaultsOnly, Category = "TankComponents")
+	TSubclassOf<class AProjectile> Projectile;
 };

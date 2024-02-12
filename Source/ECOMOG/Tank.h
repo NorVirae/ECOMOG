@@ -30,6 +30,8 @@ private:
 	void MoveForward(float moveParam);
 	void Turn(float turnParam);
 
+	class APlayerController *PlayerController;
+
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent *SpringArm;
 
