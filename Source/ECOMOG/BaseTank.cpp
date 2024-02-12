@@ -4,6 +4,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Projectile.h"
 
 // Sets default values
 ABaseTank::ABaseTank()
@@ -53,9 +54,8 @@ void ABaseTank::RotateTurret(FVector LookAt)
 
 void ABaseTank::FireMisile()
 {
-	DrawDebugSphere(GetWorld(), ProjectileSpawnPoint->GetComponentLocation(), 20.f, 30.f, FColor::Red, true, 3.f);
 	if (Projectile)
 	{
-		GetWorld()->SpawnActor(Projectile);
+		GetWorld()->SpawnActor<AProjectile>(Projectile, ProjectileSpawnPoint->GetComponentLocation(), ProjectileSpawnPoint->GetComponentRotation());
 	}
 }

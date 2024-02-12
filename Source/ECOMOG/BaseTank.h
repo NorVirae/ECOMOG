@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+
 #include "BaseTank.generated.h"
-#include "Projectile.h"
 
 UCLASS()
 class ECOMOG_API ABaseTank : public APawn
